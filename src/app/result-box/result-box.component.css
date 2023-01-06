@@ -1,0 +1,28 @@
+:host {
+  display: inline-block;
+  border: 1px solid #555;
+  border-radius: 2px;
+  padding: 2px;
+}
+
+.result {
+  display: inline-block;
+  text-align: center;
+  box-sizing: border-box;
+  min-width: 2rem;
+  min-height: 2rem;
+  color: #fff;
+  border-radius: 2px;
+  font-size: 1.5rem;
+  background-color: #18a945;
+  margin: 2px;
+}
+
+.disabled {
+  background-color: #727272;
+  color: #000;
+}
+
+ul {
+  list-style: none;
+}

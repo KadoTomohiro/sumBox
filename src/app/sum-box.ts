@@ -12,14 +12,14 @@ export class SumBox {
   }
 
   valid(input: SumBoxInput): boolean {
-    const {total, boxCount, excludes} = input
+    const {total, boxCount, includes, excludes} = input
 
     const validTotal = this.total === total
     const validBoxCount = this.boxCount === boxCount
+    const validIncludes = includes.every(include => this.numberParts.includes(include))
     const validExcludes = excludes.every(exclude => !this.numberParts.includes(exclude))
 
-
-    return validTotal && validBoxCount && validExcludes
+    return validTotal && validBoxCount && validIncludes && validExcludes
   }
 
   private sum() {

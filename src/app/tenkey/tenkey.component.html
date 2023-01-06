@@ -1,0 +1,5 @@
+<div class="keys">
+  <ng-container *ngFor="let num of numbers; let i = index">
+    <app-button [state]="selected[i]" (toggle)="onToggle($event, i)">{{num}}</app-button>
+  </ng-container>
+</div>

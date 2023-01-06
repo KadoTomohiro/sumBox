@@ -1,19 +1,29 @@
 <form [formGroup]="boxInputForm">
-  <label for="total">合計</label><input type="number" id="total" formControlName="total">
-  <label for="boxCount">枠数</label><input type="number" id="boxCount" formControlName="boxCount">
-  <label for="excludes">除外</label>
-  <fieldset id="excludes">
-    <label *ngFor="let value of excludeOptions; let i = index" formArrayName="excludes">
-      <input type="checkbox" name="excludes" [value]="value" [formControlName]="i"> {{value}}
-    </label>
-    <button type="button" (click)="resetExcludes()">Reset</button>
-  </fieldset>
+  <div class="control">
+    <label for="total">合計</label><input type="number" inputmode="numeric" id="total" formControlName="total">
+  </div>
+  <div class="control">
+    <label for="boxCount">枠数</label><input type="number" inputmode="numeric" id="boxCount" formControlName="boxCount">
+  </div>
+  <div class="control">
+    <label>包含</label>
+    <div class="buttons">
+      <app-tenkey formControlName="includes"></app-tenkey>
+      <button type="button" class="reset" (click)="resetIncludes()">Reset</button>
+    </div>
+  </div>
+  <div class="control">
+    <label>除外</label>
+    <div class="buttons">
+      <app-tenkey formControlName="excludes"></app-tenkey>
+      <button type="button" class="reset" (click)="resetExcludes()">Reset</button>
+    </div>
+  </div>
 </form>
 
 <ul>
-  <li *ngFor="let result of results | async">
-    {{result | json}}
+  <li *ngFor="let result of results| async; let i = index ">
+    <app-result-box [result]="result.numberParts" [disabled]="resultDisabled[i]" (click)="toggleDisable(i)"></app-result-box>
   </li>
 </ul>
 
-{{boxInputForm.value | json}}
