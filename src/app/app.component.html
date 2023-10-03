@@ -1,9 +1,17 @@
 <form [formGroup]="boxInputForm">
   <div class="control">
-    <label for="total">合計</label><input type="number" inputmode="numeric" id="total" formControlName="total">
+    <label for="total">合計</label>
+    <select name="total" id="total" name="total" formControlName="total">
+      <option *ngFor="let total of totals" [value]="total">{{total}}</option>
+    </select>
+<!--    <app-single-tenkey id="total" formControlName="total" [numbers]="totals" [columnWidth]="9"></app-single-tenkey>-->
+<!--    <input type="number" inputmode="numeric" id="total" formControlName="total">-->
   </div>
   <div class="control">
-    <label for="boxCount">枠数</label><input type="number" inputmode="numeric" id="boxCount" formControlName="boxCount">
+    <label for="boxCount">枠数</label>
+    <app-single-tenkey id="boxCount" formControlName="boxCount" [numbers]="columnCounts"></app-single-tenkey>
+
+<!--    <input type="number" inputmode="numeric" id="boxCount" formControlName="boxCount">-->
   </div>
   <div class="control">
     <label>包含</label>
@@ -20,10 +28,16 @@
     </div>
   </div>
 </form>
+<p class="label">サマリー</p>
+<app-result-box [result]="summary"></app-result-box>
 
+<p class="label">結果</p>
 <ul>
   <li *ngFor="let result of results| async; let i = index ">
     <app-result-box [result]="result.numberParts" [disabled]="resultDisabled[i]" (click)="toggleDisable(i)"></app-result-box>
   </li>
 </ul>
 
+{{
+boxInputForm.value | json
+}}

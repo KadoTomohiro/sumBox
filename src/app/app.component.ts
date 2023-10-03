@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {SumBox} from "./sum-box";
-import {map, Observable} from "rxjs";
+import {map, Observable, tap} from "rxjs";
 import {SumBoxService} from "./sum-box.service";
 import {SumBoxInput} from "./sum-box-input";
 
@@ -17,12 +17,17 @@ export class AppComponent {
   selectedExcludes: number[] = []
   results: Observable<SumBox[]>
 
+  totals = this.sumBoxService.sumBoxsSet.totalSet()
+  columnCounts = this.sumBoxService.sumBoxsSet.boxCountSet()
+
+  summary: number[] = []
+
   resultDisabled: boolean[] = []
   excludeOptions = [...Array(9)].map((_, i) => i + 1)
   constructor(private fb: FormBuilder, private sumBoxService: SumBoxService) {
     this.boxInputForm = new FormGroup({
-      total:this.fb.control(10,  {nonNullable: true, validators: [Validators.required, Validators.min(1), Validators.max(45)]}),
-      boxCount: this.fb.control(2, {nonNullable: true, validators:[Validators.required, Validators.min(1), Validators.max(9)]}),
+      total:this.fb.control(1,  {nonNullable: true, validators: [Validators.required, Validators.min(1), Validators.max(45)]}),
+      boxCount: this.fb.control(1, {nonNullable: true, validators:[Validators.required, Validators.min(1), Validators.max(9)]}),
       includes: this.fb.control([], {nonNullable: true}),
       excludes: this.fb.control([], {nonNullable: true}),
     })
@@ -31,11 +36,16 @@ export class AppComponent {
       map((value: SumBoxInput) => {
         const {total, boxCount, includes, excludes} = value
         const input = {
-          total, boxCount,
+          total: Number(total),
+          boxCount,
           includes,
           excludes,
         }
         return this.sumBoxService.find(input)
+      }),
+      tap((result) => {
+        this.summary = Array.from(new Set(result.map(sumBox => sumBox.numberParts).flat())).sort()
+
       })
     )
 
@@ -43,6 +53,7 @@ export class AppComponent {
       this.resultDisabled = result.map(() => false)
     })
 
+    this.boxInputForm.reset()
   }
 
   resetIncludes() {

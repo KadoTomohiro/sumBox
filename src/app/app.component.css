@@ -42,3 +42,9 @@ ul {
 li {
   display: inline-block;
 }
+
+.label {
+  margin: 0;
+  font-size: 0.7em;
+  color: #555555;
+}

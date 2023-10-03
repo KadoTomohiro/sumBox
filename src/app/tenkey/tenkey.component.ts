@@ -1,4 +1,4 @@
-import {Component, forwardRef} from '@angular/core';
+import {Component, forwardRef, Input} from '@angular/core';
 import {ControlValueAccessor, NG_VALUE_ACCESSOR} from "@angular/forms";
 import {range, toArray} from "rxjs";
 
@@ -16,6 +16,7 @@ import {range, toArray} from "rxjs";
 })
 export class TenkeyComponent implements ControlValueAccessor{
 
+  @Input()
   numbers = [...Array(9)].map((_, i) => i + 1)
   selected: boolean[] = this.initialSelected()
 
