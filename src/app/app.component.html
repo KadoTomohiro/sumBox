@@ -29,11 +29,11 @@
   </div>
 </form>
 <p class="label">サマリー</p>
-<app-result-box [result]="summary"></app-result-box>
+<app-summary [results]="results | async"></app-summary>
 
 <p class="label">結果</p>
 <ul>
-  <li *ngFor="let result of results| async; let i = index ">
+  <li *ngFor="let result of results | async; let i = index ">
     <app-result-box [result]="result.numberParts" [disabled]="resultDisabled[i]" (click)="toggleDisable(i)"></app-result-box>
   </li>
 </ul>

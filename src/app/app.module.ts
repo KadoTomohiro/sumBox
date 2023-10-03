@@ -7,6 +7,7 @@ import { TenkeyComponent } from './tenkey/tenkey.component';
 import { ButtonComponent } from './button/button.component';
 import { ResultBoxComponent } from './result-box/result-box.component';
 import {SingleTenkeyComponent} from "./tenkey/single-select/single-tenkey.component";
+import { SummaryComponent } from './summary/summary.component';
 
 @NgModule({
   declarations: [
@@ -14,7 +15,8 @@ import {SingleTenkeyComponent} from "./tenkey/single-select/single-tenkey.compon
     TenkeyComponent,
     SingleTenkeyComponent,
     ButtonComponent,
-    ResultBoxComponent
+    ResultBoxComponent,
+    SummaryComponent
   ],
   imports: [
     BrowserModule,

@@ -1,7 +1,5 @@
 .keys {
   display: inline-grid;
-}
-
-app-button {
-  margin: 3px;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 6px
 }
