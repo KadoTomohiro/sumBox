@@ -1,0 +1,5 @@
+<div class="keys" [ngStyle]="{gridTemplateColumns: grid, display: 'inline-grid'}">
+  <ng-container *ngFor="let num of numbers; let i = index">
+    <app-button [state]="selected === i + 1" (toggle)="onToggle(num)">{{num}}</app-button>
+  </ng-container>
+</div>
